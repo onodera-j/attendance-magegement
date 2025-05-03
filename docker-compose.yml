@@ -1,5 +1,9 @@
 version: '3.8'
 
+volumes:
+  db-volume:
+  maildir: {}
+
 services:
   nginx:
     image: nginx:1.21.1
