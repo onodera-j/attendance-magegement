@@ -1,0 +1,67 @@
+.content{
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 100px;
+
+}
+
+.user-status{
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.status{
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 25px;
+    color: #696969;
+    background-color: #c8c8c8;
+}
+
+.datetime{
+    padding: 20px 0 10px;
+}
+
+.date{
+    font-size: 24px;
+}
+
+.time{
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.timestamp{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.button{
+    margin: 20px;
+    padding: 20px;
+}
+
+.button-common{
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+}
+
+.clockin,.clockout{
+    color: #fff;
+    background-color: #000;
+}
+
+.rest,.resume {
+    color: #000;
+    background-color: #fff;
+}
+
+.message{
+    padding: 10px;
+    font-size: 18px;
+    line-height: 3.5;
+}
