@@ -1,0 +1,93 @@
+.content {
+    text-align: left;
+    margin: 0 auto;
+    width: 60%;
+}
+
+.content-title {
+    margin: 50px 0;
+}
+
+.title::before {
+    content: "";
+    border-left: solid 7px #000;
+    display: inline-block;
+    vertical-align: sub;
+    height: 1.3em;
+    margin-right: 20px;
+}
+
+.select-month {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+}
+
+.last-day,
+.next-day {
+    color: #737373;
+}
+
+.last-day::before {
+    content: "\2190";
+    color: #b3b3b3;
+    font-weight: 900;
+    padding-left: 10px;
+}
+
+.next-day::after {
+    content: "\2192";
+    color: #b3b3b3;
+    font-weight: 900;
+    padding-right: 10px;
+}
+
+.date {
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+.icon-calender {
+    width: auto;
+    height: 1.2em;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+.attendance-list {
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.table-monthly {
+    width: 100%;
+    text-align: center;
+    color: #737373;
+}
+
+.table-header {
+    padding: 10px 50px;
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.th-date {
+    text-align: left;
+}
+
+.td-detail {
+    color: #000;
+}
+
+.table-data {
+    padding: 10px 0;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #e1e1e1;
+}
+
+.table-monthly .table-row:last-child .table-data {
+    border-bottom: none;
+}

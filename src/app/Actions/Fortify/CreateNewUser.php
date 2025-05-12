@@ -29,7 +29,6 @@ class CreateNewUser implements CreatesNewUsers
             ],
             'password' => $this->passwordRules(),
             'password_confirmation' => ['same:password'],
-            'status'=> ['required', 'integer']
         ])->validate();
 
 
@@ -37,7 +36,7 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'status' => 0,
+            'is_admin' => 0,
         ]);
     }
 }

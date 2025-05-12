@@ -1,0 +1,27 @@
+.header {
+    background-color: #000;
+}
+
+.header-inner {
+    padding: 12px 20px;
+}
+
+.content {
+    margin: 0 auto;
+    text-align: center;
+    width: 50%;
+    padding: 30px;
+}
+
+.card-body{
+    margin: 100px 0;
+    font-weight: bold;
+}
+
+.btn{
+    margin: 30px;
+    padding: 10px 20px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-weight: bold;
+}
