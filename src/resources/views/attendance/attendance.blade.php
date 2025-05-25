@@ -8,7 +8,7 @@
 
 <div class="content">
     <div class="user-status">
-        {{-- @switch($status)
+        @switch($status)
             @case(0)
             <span class="status">勤務外</span>
                 @break
@@ -21,51 +21,52 @@
             @case(3)
             <span class="status">退勤済</span>
                 @break
-        @endswitch --}}
+        @endswitch
 
-        <span class="status">勤務外</span>
     </div>
     <div class="datetime">
-        <span class="date">2023年6月1日(木)</span>
         <span class="date">{{$date}}</span>
     </div>
     <div class="datetime">
-        <span class="time">08：00</span>
         <span class="time">{{$time}}</span>
     </div>
 
     <div class="timestamp">
-        {{-- @switch($status)
+        @switch($status)
             @case(0)
-            <div class="button">
-                <button class="button-common clockin">出 勤</button>
-            </div>
+            <form method="post" action='/at_work'>
+                @csrf
+                <div class="button">
+                    <button class="button-common clockin">出 勤</button>
+                </div>
+            </form>
                 @break
             @case(1)
-            <div class="button">
-                <button class="button-common clockout">退 勤</button>
-            </div>
-            <div class="button">
-                <button class="button-common rest">休 憩 入</button>
-            </div>
+            <form method="post" action="/leaving_work">
+                @csrf
+                <div class="button">
+                    <button class="button-common clockout">退 勤</button>
+                </div>
+            </form>
+            <form method="post" action="/at_break">
+                @csrf
+                <div class="button">
+                    <button class="button-common rest">休 憩 入</button>
+                </div>
+            </form>
                 @break
             @case(2)
-            <div class="button">
-                <button class="button-common resume">休 憩 戻</button>
-            </div>
+            <form method="post" action="/leaving_break">
+                @csrf
+                <div class="button">
+                    <button class="button-common resume">休 憩 戻</button>
+                </div>
+            </form>
                 @break
             @case(3)
             <span class="message">お疲れ様でした。</span>
                 @break
-        @endswitch --}}
-
-        <div class="button">
-            <button class="button-common clockin">出 勤</button>
-        </div>
-
-
-
-
+        @endswitch
 
 
     </div>

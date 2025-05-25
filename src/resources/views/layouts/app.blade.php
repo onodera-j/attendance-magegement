@@ -21,9 +21,9 @@
 
             <div class="member-nav">
                 <ul class="member-menu">
-                    <li class="member-content"><a class="link" href="/">勤怠</a></li>
-                    <li class="member-content"><a class="link" href="list">勤怠一覧</a></li>
-                    <li class="member-content"><a class="link" href="/">申請</a></li>
+                    <li class="member-content"><a class="link" href="/attendance">勤怠</a></li>
+                    <li class="member-content"><a class="link" href="/attendance/list">勤怠一覧</a></li>
+                    <li class="member-content"><a class="link" href="/stamp_correction_request/list">申請</a></li>
 
                     @if (Auth::check())
                     <form class="form" action="/logout" method="post">

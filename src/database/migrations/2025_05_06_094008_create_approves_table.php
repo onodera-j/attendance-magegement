@@ -16,8 +16,6 @@ class CreateApprovesTable extends Migration
         Schema::create('approves', function (Blueprint $table) {
             $table->id();
             $table->foreignId('attendance_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('rest_id_1')->constrained()->nullable();
-            $table->foreignId('rest_id_2')->constrained()->nullable();
             $table->foreignId('request_id')->constrained()->unique();
             $table->string('remarks');
             $table->date('requested_at');

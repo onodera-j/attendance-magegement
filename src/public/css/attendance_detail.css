@@ -1,0 +1,134 @@
+.content {
+    text-align: left;
+    margin: 0 auto;
+    width: 60%;
+}
+
+.content-title {
+    margin: 50px 0;
+}
+
+.title::before {
+    content: "";
+    border-left: solid 7px #000;
+    display: inline-block;
+    vertical-align: sub;
+    height: 1.3em;
+    margin-right: 20px;
+}
+
+.attendance-detail {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px 0;
+    font-size: 20px;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 25px 80px;
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.detail-row:last-child{
+    border-bottom: none;
+}
+
+.row-header{
+    color: #737373;
+    font-weight: bold;
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: 150px;
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+
+}
+
+.row-content{
+    font-weight: bold;
+}
+
+.content-record {
+    text-align: left;
+    width: 150px;
+    padding-left: 50px;
+}
+
+.content-error {
+    font-size: 12px;
+    width: 20%;
+    padding: 0 10px;
+    color: #f00;
+}
+
+.content-decorate {
+    width: 50px;
+    text-align: center;
+    padding-left: 40px;
+}
+
+.name,
+.date {
+    padding-left: 65px;
+}
+
+.text-datetime {
+    text-align: center;
+}
+
+.record {
+    width: 100px;
+    padding: 5px 0;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.content-remarks {
+    padding-left: 50px;
+}
+
+.remarks {
+    width:320px;
+    padding: 10px 20px;
+    height: 100px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    font-size: 20px;
+    resize: none;
+}
+
+.form-button {
+    text-align: end;
+    padding: 50px 0;
+}
+
+.button-modify {
+    padding: 10px 50px;
+    background-color: #000;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.text-remarks {
+    padding-left: 65px;
+}
+
+.message-diseditable {
+    text-align: right;
+    color: #f77879;
+    padding: 20px 0;
+    font-weight: bold;
+
+}
+
+

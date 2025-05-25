@@ -17,16 +17,10 @@ class CreateRequestsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('attendance_id')->constrained()->cascadeOnDelete();
-            $table->time('attendance_in');
-            $table->time('attendance_out');
-            $table->foreignId('rest_id_1')->nullable();
-            $table->time('rest_in_1')->nullable();
-            $table->time('rest_out_1')->nullable();
-            $table->foreignId('rest_id_2')->nullable();
-            $table->time('rest_in_2')->nullable();
-            $table->time('rest_out_2')->nullable();
+            $table->datetime('work_start_datetime');
+            $table->datetime('work_end_datetime');
             $table->string('remarks');
-            $table->date('requested_at');
+            $table->datetime('requested_at');
             $table->timestamps();
         });
     }

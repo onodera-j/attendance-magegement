@@ -13,13 +13,13 @@
 
     <div class="select-month">
         <div class="last-month">
-            前月
+            <a class="link-date" href="{{ route('attendance.list', ['year' => $viewDate['prevYear'], 'month' => $viewDate['prevMonth']]) }}">前月</a>
         </div>
         <div class="this-month">
-            <img class="icon-calender" src="{{ asset("img/calender.svg") }}"><span class="date">2023/06</span>
+            <img class="icon-calender" src="{{ asset("img/calender.svg") }}"><span class="date">{{$viewDate['yearMonth']}}</span>
         </div>
         <div class="next-month">
-            翌月
+            <a class="link-date" href="{{ route('attendance.list', ['year' => $viewDate['nextYear'], 'month' => $viewDate['nextMonth']]) }}">翌月</a>
         </div>
     </div>
 
@@ -33,30 +33,23 @@
                 <th class="table-header">合計</th>
                 <th class="table-header">詳細</th>
             </tr>
+
+            @foreach($attendanceData as $record)
             <tr class="table-row">
-                <td class="table-data">06/01(木)</td>
-                <td class="table-data">09:00</td>
-                <td class="table-data">18:00</td>
-                <td class="table-data">1:00</td>
-                <td class="table-data">8:00</td>
-                <td class="table-data td-detail">詳細</td>
+                <td class="table-data">{{$record['date']}}</td>
+                <td class="table-data">{{$record['atWork']}}</td>
+                <td class="table-data">{{$record['leavingWork']}}</td>
+                <td class="table-data">{{$record['restTime']}}</td>
+                <td class="table-data">{{$record['totalTime']}}</td>
+                @if($record['attendanceId'] != null)
+                <td class="table-data td-detail">
+                    <a class="link-detail" href="/attendance/{{$record['attendanceId']}}">詳細</a></td>
+                @else
+                <td class="table-data td-detail"></td>
+                @endif
+
             </tr>
-            <tr class="table-row">
-                <td class="table-data">06/02(金)</td>
-                <td class="table-data">09:00</td>
-                <td class="table-data">18:00</td>
-                <td class="table-data">1:00</td>
-                <td class="table-data">8:00</td>
-                <td class="table-data td-detail">詳細</td>
-            </tr>
-            <tr class="table-row">
-                <td class="table-data">06/03(土)</td>
-                <td class="table-data">09:00</td>
-                <td class="table-data">18:00</td>
-                <td class="table-data">1:00</td>
-                <td class="table-data">8:00</td>
-                <td class="table-data td-detail">詳細</td>
-            </tr>
+            @endforeach
         </table>
     </div>
 

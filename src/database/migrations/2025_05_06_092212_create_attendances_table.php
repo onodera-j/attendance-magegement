@@ -16,11 +16,11 @@ class CreateAttendancesTable extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->date('date');
-            $table->time('clock_in');
-            $table->time('clock_out')->nullable();
-            $table->integer('pending'); //0:未申請,1:申請中
-            $table->timestamps();
+            $table->datetime('work_start_datetime');
+            $table->datetime('work_end_datetime')->nullable();
+            $table->integer('work_time')->nullable();
+            // $table->integer('total_time')->nullable();
+            $table->integer('pending')->default(0); //0:未申請,1:申請中
         });
     }
 

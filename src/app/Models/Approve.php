@@ -11,26 +11,23 @@ class Approve extends Model
 
     protected $fillable = [
         'attendance_id',
-        'rest_id_1',
-        'rest_id_2',
-        'request_id',
+        'requesr_id',
         'remarks',
         'requested_at',
     ];
 
+    protected $casts = [
+        'requested_at' => 'datetime',
+    ];
+
     public function attendance()
     {
-        return $this->belongsTo(Attendance::class,attendance_id,id);
+        return $this->belongsTo(Attendance::class, 'attendance_id', 'id');
     }
 
-    public function rest1()
+    public function restApprove()
     {
-        return $this->belongsTo(Rest::class,rest_id_1,id);
-    }
-
-    public function rest2()
-    {
-        return $this->belongsTo(Rest::class,rest_id_2,id);
+        return $this->hasMany(RestApprove::class);
     }
 
     public function request()

@@ -12,31 +12,26 @@ class Request extends Model
     protected $fillable = [
         'user_id',
         'attendance_id',
-        'attendance_in',
-        'attendance_out',
-        'rest_id_1',
-        'rest_in_1',
-        'rest_out_1',
-        'rest_id_2',
-        'rest_in_2',
-        'rest_out_2',
+        'work_start_datetime',
+        'work_end_datetime',
         'remarks',
-        'application',
+        'requested_at'
+    ];
+
+    protected $casts = [
+        'work_start_datetime' => 'datetime',
+        'work_end_datetime' => 'datetime',
+        'requested_at' => 'datetime'
     ];
 
     public function attendance()
     {
-        return $this->belongsTo(Attendance::class,attendance_id,id);
+        return $this->belongsTo(Attendance::class, 'attendance_id', 'id');
     }
 
-    public function rest1()
+    public function restRequest()
     {
-        return $this->belongsTo(Rest::class,rest_id_1,id);
-    }
-
-    public function rest2()
-    {
-        return $this->belongsTo(Rest::class,rest_id_2,id);
+        return $this->hasMany(RestRequest::class);
     }
 
     public function approve()

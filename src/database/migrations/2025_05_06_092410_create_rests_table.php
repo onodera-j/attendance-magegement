@@ -17,10 +17,10 @@ class CreateRestsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('attendance_id')->constrained()->cascadeOnDelete();
-            $table->time('clock_in');
-            $table->time('clock_out')->nullable();
-            $table->integer('total_time')->nullable();
-            $table->timestamps();
+            $table->datetime('rest_start_datetime');
+            $table->datetime('rest_end_datetime')->nullable();
+            $table->integer('rest_time')->nullable();
+            $table->integer('rest_status')->default(1);//0:休憩終,1:休憩中
         });
     }
 

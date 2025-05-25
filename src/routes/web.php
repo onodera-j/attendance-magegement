@@ -27,8 +27,15 @@ Route::prefix('admin')->group(function () {
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/attendance', [AttendanceController::class, 'attendance']);
-    Route::get('/attendance/list', [AdminController::class, 'attendanceList']);
+    Route::get('/attendance', [AttendanceController::class, 'attendance'])->name('attendance');
+    Route::get('/attendance/list', [AttendanceController::class, 'attendanceList'])->name('attendance.list');
+    Route::get('/attendance/{id}', [AttendanceController::class, 'attendanceDetail'])->name('attendance.detail');
+    Route::post('/at_work', [AttendanceController::class, 'atWork']);
+    Route::post('/leaving_work', [AttendanceController::class, 'leavingWork']);
+    Route::post('/at_break', [AttendanceController::class, 'atBreak']);
+    Route::post('/leaving_break', [AttendanceController::class, 'leavingBreak']);
+    Route::get('/stamp_correction_request/list', [AttendanceController::class, 'requestList'])->name('stamp_correction_request.list');
+    Route::post('/stamp_correction_request', [AttendanceController::class, 'stampCorrectionRequest']);
 });
 
 Route::prefix('admin')->middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -39,7 +46,5 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'verified'])->group(function
 });
 
 Auth::routes(['verify' => true]);
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
