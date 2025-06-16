@@ -15,6 +15,7 @@ class Rest extends Model
         'rest_start_datetime',
         'rest_end_datetime',
         'rest_time',
+        'rest_status',
     ];
 
     protected $casts = [

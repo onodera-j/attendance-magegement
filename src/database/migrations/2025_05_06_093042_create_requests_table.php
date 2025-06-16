@@ -21,6 +21,7 @@ class CreateRequestsTable extends Migration
             $table->datetime('work_end_datetime');
             $table->string('remarks');
             $table->datetime('requested_at');
+            $table->integer('approve_status')->default(0); //0:未承認，1:承認済
             $table->timestamps();
         });
     }

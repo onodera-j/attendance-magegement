@@ -80,6 +80,16 @@
                     <th class="table-header">申請日時</th>
                     <th class="table-header">詳細</th>
                 </tr>
+                @foreach($approveDatas as $approveData)
+                <tr class="table-row">
+                    <td class="table-data">承認済み</td>
+                    <td class="table-data">{{$user["name"]}}</td>
+                    <td class="table-data">{{$approveData->attendance->work_start_datetime->format('Y/m/d')}}</td>
+                    <td class="table-data">{{$approveData["remarks"]}}</td>
+                    <td class="table-data">{{$approveData->requested_at->format('Y/m/d')}}</td>
+                    <td class="table-data td-detail"><a class="link-detail" href="/attendance/{{$approveData["attendance_id"]}}">詳細</a></td></td>
+                </tr>
+                @endforeach
                 <tr class="table-row">
                     <td class="table-data">06/02(金)</td>
                     <td class="table-data">09:00</td>

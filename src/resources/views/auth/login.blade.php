@@ -8,7 +8,7 @@
 
 <div class="content">
     <div class="content-title">
-        <h2>ログイン</h2>
+        <h2>一般ログイン</h2>
     </div>
 
     <div class="account-form">
@@ -42,6 +42,7 @@
         </div>
 
     </div>
+</div>
 
 
 @endsection

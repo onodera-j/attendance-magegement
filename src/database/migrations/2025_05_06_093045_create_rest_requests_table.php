@@ -17,8 +17,8 @@ class CreateRestRequestsTable extends Migration
             $table->id();
             $table->foreignId('request_id')->constrained()->cascadeOnDelete();
             $table->foreignId('rest_id')->nullable();
-            $table->datetime('rest_start_datetime');
-            $table->datetime('rest_end_datetime');
+            $table->datetime('rest_start_datetime')->nullable();
+            $table->datetime('rest_end_datetime')->nullable();
             $table->timestamps();
         });
     }

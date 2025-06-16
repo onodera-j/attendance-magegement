@@ -8,11 +8,11 @@
 
 <div class="content">
     <div class="content-title">
-        <h2>ログイン</h2>
+        <h2>管理者ログイン</h2>
     </div>
 
     <div class="account-form">
-        <form method="POST" action="{{route("admin")}}">
+        <form method="POST" action="{{route("admin.login")}}">
             @csrf
 
             <div class="form-group">
@@ -39,3 +39,5 @@
 
 
     </div>
+</div>
+@endsection

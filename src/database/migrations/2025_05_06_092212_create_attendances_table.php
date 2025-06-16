@@ -19,7 +19,7 @@ class CreateAttendancesTable extends Migration
             $table->datetime('work_start_datetime');
             $table->datetime('work_end_datetime')->nullable();
             $table->integer('work_time')->nullable();
-            // $table->integer('total_time')->nullable();
+            $table->string('remarks')->nullable();
             $table->integer('pending')->default(0); //0:未申請,1:申請中
         });
     }

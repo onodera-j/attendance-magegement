@@ -67,7 +67,7 @@ class RequestRequest extends FormRequest
             // 休憩の開始と終了がペアになるようにループ
             foreach ($restStarts as $index => $restStartStr) {
                 $restEndStr = $restEnds[$index] ?? null;
-                $restStartsDateStr = $restStartsDates[$index] ?? null;
+                $restStartDateStr = $restStartsDates[$index] ?? null;
                 $restEndDateStr = $restEndsDates[$index] ?? null;
 
                 $hasAnyTimeInput = !empty($restStartStr) || !empty($restEndStr);
@@ -83,20 +83,38 @@ class RequestRequest extends FormRequest
                 }
 
                 if ($restStartStr && $restEndStr) {
-                    $restStartTime = Carbon::parse($restStartsDateStr . ' ' . $restStartStr);
-                    $restEndTime = Carbon::parse($restEndDateStr . ' ' . $restEndStr);
+                    if ($restStartDateStr !== null && $restEndDateStr !== null) {
+                        $restStartTime = Carbon::parse($restStartDateStr . ' ' . $restStartStr);
+                        $restEndTime = Carbon::parse($restEndDateStr . ' ' . $restEndStr);
 
-                    // 休憩終了が休憩開始より前であるか
-                    if ($restEndTime->lte($restStartTime)) {
-                        $validator->errors()->add('rest_end.' . $index, '休憩開始時間もしくは休憩終了時間が不適切な値です');
-                    }
+                        // 休憩終了が休憩開始より前であるか
+                        if ($restEndTime->lte($restStartTime)) {
+                            $validator->errors()->add('rest_end.' . $index, '休憩開始時間もしくは休憩終了時間が不適切な値です');
+                        }
 
-                    // 休憩が勤務時間内に収まっているかのチェック
-                    if ($restStartTime->lt($workStartTime) || $restStartTime->gte($workEndTime)) {
-                        $validator->errors()->add('rest_start.' . $index, '休憩時間が勤務時間外です');
-                    }
-                    if ($restEndTime->lte($workStartTime) || $restEndTime->gt($workEndTime)) {
-                        $validator->errors()->add('rest_end.' . $index, '休憩時間が勤務時間外です');
+                        // 休憩が勤務時間内に収まっているかのチェック
+                        if ($restStartTime->lt($workStartTime) || $restStartTime->gte($workEndTime)) {
+                            $validator->errors()->add('rest_start.' . $index, '休憩時間が勤務時間外です');
+                        }
+                        if ($restEndTime->lte($workStartTime) || $restEndTime->gt($workEndTime)) {
+                            $validator->errors()->add('rest_end.' . $index, '休憩時間が勤務時間外です');
+                        }
+                    }else{
+                        $restStartTime = Carbon::parse($data['work_start_date'] . ' ' . $restStartStr);
+                        $restEndTime = Carbon::parse($data['work_start_date'] . ' ' . $restEndStr);
+
+                        // 休憩終了が休憩開始より前であるか
+                        if ($restEndTime->lte($restStartTime)) {
+                            $validator->errors()->add('rest_end.' . $index, '休憩開始時間もしくは休憩終了時間が不適切な値です');
+                        }
+
+                        // 休憩が勤務時間内に収まっているかのチェック
+                        if ($restStartTime->lt($workStartTime) || $restStartTime->gte($workEndTime)) {
+                            $validator->errors()->add('rest_start.' . $index, '休憩時間が勤務時間外です');
+                        }
+                        if ($restEndTime->lte($workStartTime) || $restEndTime->gt($workEndTime)) {
+                            $validator->errors()->add('rest_end.' . $index, '休憩時間が勤務時間外です');
+                        }
                     }
                 }
             }

@@ -119,6 +119,17 @@
     cursor: pointer;
 }
 
+.button-approved {
+    padding: 10px 30px;
+    background-color: #696969;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    pointer-events: none;
+}
+
 .text-remarks {
     padding-left: 65px;
 }
@@ -131,4 +142,53 @@
 
 }
 
+@media screen and (max-width: 1200px) {
+
+    .content {
+        text-align: left;
+        margin: 0 auto;
+        width: 650px;
+        padding-bottom: 100px;
+    }
+
+    .detail-row {
+        padding: 25px 30px;
+    }
+
+    .row-header {
+        width: 100px;
+        min-width: 100px;
+        max-width: 100px;
+    }
+
+    .record {
+        width: 80px;
+    }
+
+    .date {
+        padding-left: 65px;
+    }
+
+    .content-decorate {
+        width: 20px;
+        padding-left: 20px;
+    }
+
+    .content-record {
+        padding-left: 65px;
+    }
+
+    .content-remarks {
+        padding-left: 65px;
+    }
+
+    .remarks {
+        width: 260px;
+    }
+
+    .content-error {
+        font-size: 10px;
+    }
+
+}
 

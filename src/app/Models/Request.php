@@ -15,7 +15,8 @@ class Request extends Model
         'work_start_datetime',
         'work_end_datetime',
         'remarks',
-        'requested_at'
+        'requested_at',
+        'approve_status',
     ];
 
     protected $casts = [
@@ -27,6 +28,11 @@ class Request extends Model
     public function attendance()
     {
         return $this->belongsTo(Attendance::class, 'attendance_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function restRequest()

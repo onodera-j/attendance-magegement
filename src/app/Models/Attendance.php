@@ -16,6 +16,7 @@ class Attendance extends Model
         'work_time',
         'total_time',
         'pending',
+        'remarks'
     ];
 
     protected $casts = [

@@ -83,11 +83,6 @@ class AttendanceController extends Controller
             $workEnd = $now->startOfSecond();
             $attendanceData['work_time'] = $workEnd->diffInMinutes($workStart);
 
-            // $restRecords = Rest::where('attendance_id', $attendanceRecord->id)->get();
-            // $totalRestTime = $restRecords->sum('rest_time');
-            // $attendanceData['total_rest_time'] = $totalRestTime;
-
-
             $attendanceRecord->update($attendanceData);
 
             $person = User::find($user->id);
@@ -142,14 +137,14 @@ class AttendanceController extends Controller
             $restRecord = Rest::where('rest_status', 1)
                                 ->where('user_id',$user->id)
                                 ->where('rest_end_datetime', null)->first();
-            $restData['rest_end_datetime'] = $now;
+            $restRecord->rest_end_datetime = $now;
 
             $restStart = Carbon::parse($restRecord->rest_start_datetime)->startOfSecond();
             $restEnd = $now->startOfSecond();
-            $restData['rest_time'] = $restEnd->diffInMinutes($restStart);
+            $restRecord->rest_time = $restEnd->diffInMinutes($restStart);
 
-            $restData['rest_status'] = 0;
-            $restRecord->update($restData);
+            $restRecord->rest_status = 0;
+            $restRecord->save();
 
             $person = User::find($user->id);
             $userData['status'] = 1;
@@ -227,7 +222,6 @@ class AttendanceController extends Controller
                 $totalHours = floor($totalTimeMinutes / 60);
                 $totalMinutes = $totalTimeMinutes % 60;
                 $totalTime = sprintf('%2d:%02d', $totalHours, $totalMinutes);
-
                 $attendanceId = $attendance->id;
 
             }
@@ -240,27 +234,40 @@ class AttendanceController extends Controller
                 'totalTime' => $totalTime,
                 'attendanceId' => $attendanceId,
             ];
+
+
         }
 
         return view('attendance.list', compact('attendanceData', 'viewDate',));
     }
 
-    public function attendanceDetail($id)
+    public function attendanceDetail(Request $request,$id)
     {
         $user = Auth::user();
 
+        $attendanceData = [];
         $attendanceData = Attendance::where('user_id', $user->id)
-                                    ->where('id', $id)->first();
+                                    ->where('id', $id)
+                                    ->first();
+
         $restDatas = Rest::where('user_id', $user->id)
                         ->where('attendance_id', $attendanceData->id)->get();
-
         $requestData = [];
         $requestRestDatas = [];
         if($attendanceData->pending === 1){
             $requestData = UserRequest::where('user_id', $user->id)
+                                    ->where('approve_status', 0)
                                     ->where('attendance_id', $id)->first();
             $requestRestDatas = RestRequest::where('request_id',  $requestData->id)->get();
         }
+
+        $newEmptyRest = new Rest([
+            'rest_start_datetime' => null,
+            'rest_end_datetime' => null,
+            'id' => null,
+        ]);
+
+        $restDatas = $restDatas->push($newEmptyRest);
 
         return view('attendance.detail', compact('user','attendanceData','restDatas', 'id', "requestData", "requestRestDatas"));
     }
@@ -287,7 +294,6 @@ class AttendanceController extends Controller
             $work_start_datetime = Carbon::parse($work_start_date . " " . $work_start_time);
             $work_end_datetime = Carbon::parse($work_end_date . " " . $work_end_time);
 
-            $requestData = [];
             $requestData = [
                 "user_id" => $user->id,
                 "attendance_id" => $attendanceId,
@@ -295,6 +301,7 @@ class AttendanceController extends Controller
                 "work_end_datetime" => $work_end_datetime,
                 "remarks" => $request->input("remarks"),
                 "requested_at" => Carbon::now(),
+                "approve_status" => 0,
             ];
 
             $createdUserRequest = UserRequest::create($requestData);
@@ -302,33 +309,53 @@ class AttendanceController extends Controller
 
             //restrequestに追加
 
-            $restStartsDates = $request->input('rest_start_date');
-            $restStarts = $request->input('rest_start'); // または
-            $restEndsDates = $request->input('rest_end_date');
-            $restEnds = $request->input('rest_end');
+            $restStartsDates = $request->input('rest_start_date',[]);
+            $restStarts = $request->input('rest_start',[]);
+            $restEndsDates = $request->input('rest_end_date',[]);
+            $restEnds = $request->input('rest_end',[]);
+            $restIds = $request->input('rest_id',[]);
 
-            $restIds = $request->input('rest_id');
-
-            foreach ($restIds as $index => $restId) {
-                $restData = [];
+            foreach ($restIds as $index => $restIdValue) {
                 $restStartStr = $restStarts[$index] ?? null;
                 $restEndStr = $restEnds[$index] ?? null;
                 $restStartDateStr = $restStartsDates[$index] ?? null;
                 $restEndDateStr = $restEndsDates[$index] ?? null;
-                $restIdStr = $restId[$index] ?? null;
 
-                if ($restStartStr && $restEndStr && $restStartDateStr && $restEndDateStr) {
+                if($restIdValue === null && $restStartStr === null && $restEndStr === null){
+                    continue;
+                }
+
+                if($restIdValue && $restStartStr === null && $restEndStr === null){
+                    RestRequest::create([
+                        "request_id" => $newRequestId,
+                        "rest_id" => $restIdValue,
+                        "rest_start_datetime" => null,
+                        "rest_end_datetime" => null,
+                    ]);
+                }elseif($restIdValue && $restStartStr && $restEndStr && $restStartDateStr && $restEndDateStr) {
                     $restStartDatetime = $restStartDateStr . " " . $restStartStr;
                     $restEndDatetime = $restEndDateStr . " " . $restEndStr;
 
-                    $restData = [
+                    RestRequest::create([
                         "request_id" => $newRequestId,
-                        "rest_id" => $restIdStr,
+                        "rest_id" => $restIdValue,
                         "rest_start_datetime" => $restStartDatetime,
                         "rest_end_datetime" => $restEndDatetime,
-                    ];
+                    ]);
+                }elseif($restIdValue === null && $restStartStr && $restEndStr){
+                    //新規で休憩時間を登録
+                    $restStartDatetime = $work_start_date . " " . $restStartStr;
+                    $restEndDatetime = $work_start_date . " " . $restEndStr;
 
-                    RestRequest::create($restData);
+                    RestRequest::create([
+                        "request_id" => $newRequestId,
+                        "rest_id" => $restIdValue,
+                        "rest_start_datetime" => $restStartDatetime,
+                        "rest_end_datetime" => $restEndDatetime,
+                    ]);
+
+                }else{
+                    continue;
                 }
             }
 
@@ -351,13 +378,14 @@ class AttendanceController extends Controller
 
         if($tab === "request"){
             $requestDatas = UserRequest::where('user_id',$user->id)
-                                        ->get();
+                            ->where('approve_status', 0)
+                            ->get();
         }
 
         if($tab === "approve"){
-            $approveDatas = Approve::whereHas('attendance', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })->get();
+            $approveDatas = UserRequest::where('user_id',$user->id)
+                            ->where('approve_status', 1)
+                            ->get();
         }
 
 
