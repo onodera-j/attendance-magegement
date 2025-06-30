@@ -44,8 +44,8 @@ class AttendanceController extends Controller
 
     public function atWork()
     {
-        DB::beginTransaction();
-        try{
+        // DB::beginTransaction();
+        // try{
             $user = Auth::user();
             $now = Carbon::now();
             $attendanceData['user_id'] = $user->id;
@@ -54,18 +54,17 @@ class AttendanceController extends Controller
             Attendance::create($attendanceData);
 
             $person = User::find($user->id);
-            $userData['status'] = 1;
-            $person->update($userData);
+            $person->update(['status' => 1]);
 
             DB::commit();
 
             return redirect('/attendance');
 
-        }catch(\Exception $e) {
-            DB::rollback();
-            Log::error("Error: " . $e->getMessage());
-            return back()->withErrors(["error", "エラーが発生しました"]);
-        }
+        // }catch(\Exception $e) {
+        //     DB::rollback();
+        //     Log::error("Error: " . $e->getMessage());
+        //     return back()->withErrors(["error", "エラーが発生しました"]);
+        // }
     }
 
     public function leavingWork()
@@ -86,8 +85,7 @@ class AttendanceController extends Controller
             $attendanceRecord->update($attendanceData);
 
             $person = User::find($user->id);
-            $userData['status'] = 0;
-            $person->update($userData);
+            $person->update(["status" => 0]);
 
             DB::commit();
 
@@ -114,8 +112,7 @@ class AttendanceController extends Controller
             Rest::create($restData);
 
             $person = User::find($user->id);
-            $userData['status'] = 2;
-            $person->update($userData);
+            $person->update(["status" => 2]);
 
             DB::commit();
 
@@ -147,8 +144,7 @@ class AttendanceController extends Controller
             $restRecord->save();
 
             $person = User::find($user->id);
-            $userData['status'] = 1;
-            $person->update($userData);
+            $person->update(["status" => 1]);
 
             DB::commit();
 
@@ -269,6 +265,7 @@ class AttendanceController extends Controller
 
         $restDatas = $restDatas->push($newEmptyRest);
 
+
         return view('attendance.detail', compact('user','attendanceData','restDatas', 'id', "requestData", "requestRestDatas"));
     }
 
@@ -364,6 +361,8 @@ class AttendanceController extends Controller
         }catch(\Exception $e) {
             DB::rollback();
             Log::error("Error: " . $e->getMessage());
+            dd("Error occurred: " . $e->getMessage(), $e->getTraceAsString());
+        // Log::error("Error: " . $e->getMessage()); // これは残しても良い
             return back()->withErrors(["error", "エラーが発生しました"]);
         }
     }

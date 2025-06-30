@@ -4,10 +4,13 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Attendance;
+use App\Models\User;
+use Carbon\Carbon;
 
 
 class AttendanceFactory extends Factory
 {
+    protected $model = Attendance::class;
     /**
      * Define the model's default state.
      *
@@ -16,11 +19,12 @@ class AttendanceFactory extends Factory
     public function definition()
     {
         return [
-            "user_id" => 3,
-            "work_start_datetime" =>"2025-05-24 03:20:00",
-            "work_end_datetime" =>"2025-05-24 03:20:00",
-            "total_time" =>"10",
-            "pending" =>"0",
+            "user_id" => null,
+            "work_start_datetime" => null,
+            "work_end_datetime" => null,
+            "work_time" => 0,
+            "remarks" => null,
+            "pending" =>0,
         ];
     }
 }

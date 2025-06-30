@@ -29,7 +29,6 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
     Route::post('/leaving_work', [AttendanceController::class, 'leavingWork']);
     Route::post('/at_break', [AttendanceController::class, 'atBreak']);
     Route::post('/leaving_break', [AttendanceController::class, 'leavingBreak']);
-    // Route::get('/stamp_correction_request/list', [AttendanceController::class, 'requestList'])->name('stamp_correction_request.list');
     Route::post('/stamp_correction_request', [AttendanceController::class, 'stampCorrectionRequest']);
 });
 
@@ -68,7 +67,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/stamp_correction/approve/{attendance_correct_request}', [AdminController::class, 'approveRequest']);
+    Route::get('/stamp_correction/approve/{attendance_correct_request}', [AdminController::class, 'approveRequest'])->name("correction.approve");
     Route::post('/request/approve', [AdminController::class, 'requestApprove']);
 });
 

@@ -17,22 +17,17 @@ class RestRequest extends Model
     ];
 
     protected $casts = [
-        'rest_start_datetime' => 'datetime', // ここを追加
+        'rest_start_datetime' => 'datetime',
         'rest_end_datetime' => 'datetime',
     ];
 
-    public function request()
-    {
-        return $this->belongsTo(Request::class, 'request_id', 'id');
-    }
-
     public function rest()
     {
-        return $this->belongsTo(Rest::class, 'rest_id', 'id');
+        return $this->belongsTo(Rest::class);
     }
 
-    public function restApprove()
+    public function request()
     {
-        return $this->hasOne(RestApprove::class);
+        return $this->belongsTo(Request::class);
     }
 }

@@ -48,6 +48,8 @@
     font-size: 18px;
     cursor: pointer;
     border: none;
+    text-indent: 0.5em;
+    letter-spacing: 0.5em;
 }
 
 .clockin,.clockout{

@@ -35,13 +35,13 @@ class Request extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function restRequest()
-    {
-        return $this->hasMany(RestRequest::class);
-    }
-
     public function approve()
     {
         return $this->hasOne(Approve::class);
+    }
+
+    public function restRequest()
+    {
+        return $this->hasMany(RestRequest::class);
     }
 }

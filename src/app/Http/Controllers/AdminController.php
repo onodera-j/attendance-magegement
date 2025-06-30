@@ -305,7 +305,6 @@ class AdminController extends Controller
             $approveData = UserRequest::where('id', $approveId)->first();
             $approveWorkTime = $approveData["work_end_datetime"]->diffInMinutes($approveData["work_start_datetime"]);
 
-
             //attendanceテーブルを更新
             $attendanceData = Attendance::find($approveData["attendance_id"]);
 

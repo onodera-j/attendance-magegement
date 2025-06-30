@@ -35,10 +35,5 @@ class Rest extends Model
         return $this->hasMany(RestRequest::class);
     }
 
-    public function restApprove()
-    {
-        return $this->hasMany(RestApprove::class);
-    }
-
 
 }

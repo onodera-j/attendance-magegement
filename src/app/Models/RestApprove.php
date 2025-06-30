@@ -25,8 +25,4 @@ class RestApprove extends Model
         return $this->belongsTo(Rest::class, 'rest_id', 'id');
     }
 
-    public function restRequest()
-    {
-        return $this->belongsTo(RestRequest::class);
-    }
 }

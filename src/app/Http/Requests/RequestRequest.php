@@ -42,8 +42,6 @@ class RequestRequest extends FormRequest
         $validator->after(function ($validator) {
             $data = $this->all();
 
-            // dd($data);
-
             if (empty($data['work_start']) || empty($data['work_end'])) {
                 return; // 必須フィールドがなければ、以降の複雑な時間チェックはスキップ
             }
@@ -51,6 +49,8 @@ class RequestRequest extends FormRequest
             // 1. 勤務開始時間より勤務終了時間が早くなっていないかのチェック
             $workStartTime = Carbon::parse($data['work_start_date'] . ' ' . $data['work_start']);
             $workEndTime = Carbon::parse($data['work_end_date'] . ' ' . $data['work_end']);
+
+            //
 
             if ($workEndTime->lte($workStartTime)) {
                 $validator->errors()->add('work_end', '出勤時間もしくは退勤時間が不適切な値です');
