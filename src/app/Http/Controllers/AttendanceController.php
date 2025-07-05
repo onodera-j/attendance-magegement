@@ -12,7 +12,6 @@ use App\Models\User;
 use App\Models\Rest;
 use App\Models\Request as UserRequest;
 use App\Models\RestRequest;
-use App\Models\Approve;
 use App\Http\Requests\RequestRequest;
 
 class AttendanceController extends Controller
@@ -60,11 +59,6 @@ class AttendanceController extends Controller
 
             return redirect('/attendance');
 
-        // }catch(\Exception $e) {
-        //     DB::rollback();
-        //     Log::error("Error: " . $e->getMessage());
-        //     return back()->withErrors(["error", "エラーが発生しました"]);
-        // }
     }
 
     public function leavingWork()
@@ -318,11 +312,11 @@ class AttendanceController extends Controller
                 $restStartDateStr = $restStartsDates[$index] ?? null;
                 $restEndDateStr = $restEndsDates[$index] ?? null;
 
-                if($restIdValue === null && $restStartStr === null && $restEndStr === null){
+                if(!$restIdValue && !$restStartStr && !$restEndStr){
                     continue;
                 }
 
-                if($restIdValue && $restStartStr === null && $restEndStr === null){
+                if($restIdValue && !$restStartStr && !$restEndStr){
                     RestRequest::create([
                         "request_id" => $newRequestId,
                         "rest_id" => $restIdValue,
@@ -339,7 +333,7 @@ class AttendanceController extends Controller
                         "rest_start_datetime" => $restStartDatetime,
                         "rest_end_datetime" => $restEndDatetime,
                     ]);
-                }elseif($restIdValue === null && $restStartStr && $restEndStr){
+                }elseif(!$restIdValue && $restStartStr && $restEndStr){
                     //新規で休憩時間を登録
                     $restStartDatetime = $work_start_date . " " . $restStartStr;
                     $restEndDatetime = $work_start_date . " " . $restEndStr;

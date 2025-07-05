@@ -7,7 +7,7 @@
 @section('content')
     <div class="content">
         <div class="content-title">
-            <h2 class="title">勤怠一覧アドミン</h2>
+            <h2 class="title">勤怠一覧</h2>
         </div>
 
         <div class="select-month">

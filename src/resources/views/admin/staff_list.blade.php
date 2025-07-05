@@ -29,16 +29,7 @@
                         </td>
                     </tr>
                 @endforeach
-                <tr class="table-row">
-                    <td class="table-data">戸田 一郎</td>
-                    <td class="table-data">09:00</td>
-                    <td class="table-data td-detail">詳細</td>
-                </tr>
-                <tr class="table-row">
-                    <td class="table-data">青木 一太</td>
-                    <td class="table-data">09:00</td>
-                    <td class="table-data td-detail">詳細</td>
-                </tr>
+
             </table>
         </div>
 

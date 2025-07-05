@@ -17,7 +17,7 @@
     <header class="header">
         <div class="header-inner">
             <div class="header-logo">
-                <a href="/"><img class="logo" src="{{ asset('img/logo.svg') }}"></a>
+                <a href="/admin/attendance/list"><img class="logo" src="{{ asset('img/logo.svg') }}"></a>
             </div>
 
             <div class="member-nav">

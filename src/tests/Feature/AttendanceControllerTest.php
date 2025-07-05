@@ -37,7 +37,7 @@ class AttendanceControllerTest extends TestCase
         parent::tearDown();
     }
 
-    // //4 日時取得機能
+    //4 日時取得機能
     public function test_attendance_日時取得()
     {
 
@@ -553,7 +553,7 @@ class AttendanceControllerTest extends TestCase
         $followedResponse->assertStatus(200);
         $followedResponse->assertSee("休憩時間が勤務時間外です");
 
-        //休憩開始時間が退勤時間よりも後になっている場合のエラー
+        //備考欄未入力時のエラー
         $correctionData = [
             "work_start" => "9:00",
             "work_end" => "17:15",

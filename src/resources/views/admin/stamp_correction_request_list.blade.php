@@ -8,7 +8,7 @@
 
     <div class="content">
         <div class="content-title">
-            <h2 class="title">アドミン申請一覧</h2>
+            <h2 class="title">申請一覧</h2>
         </div>
 
         <div class="tab-group">
@@ -103,14 +103,7 @@
                                 </td>
                             </tr>
                         @endforeach
-                        <tr class="table-row">
-                            <td class="table-data">06/03(土)</td>
-                            <td class="table-data">09:00</td>
-                            <td class="table-data">18:00</td>
-                            <td class="table-data">1:00</td>
-                            <td class="table-data">8:00</td>
-                            <td class="table-data td-detail">詳細</td>
-                        </tr>
+
                     </table>
                 </div>
             @break

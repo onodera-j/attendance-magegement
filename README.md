@@ -1,8 +1,8 @@
-# Fleamarker_app（フリマアプリ）
+# Attendance-Manegement_app（勤怠アプリ）
 
 ##　環境構築
 **Dockerビルド**
-1. `git clone git@hub.com:onodera-j/.git`
+1. `git clone git@github.com:onodera-j/attendance-magegement.git`
 2. DockerDesktopアプリを立ち上げる
 3. `docker-compose up -d --build`
 
@@ -46,6 +46,34 @@ php artisan migrate
 7. シーディングの実行
 ``` bash
 php artisan db:seed
+```
+以下のデータを作成します
+管理者アカウント
+一般ログイン用アカウント
+サンプルデータとして6人分の先月から昨日までの勤怠情報（月～金）
+
+## 管理者用アカウント
+name: 管理者
+email: admin@example.com
+password: 00000000
+
+## 一般アカウント
+name: 一般ログイン
+email: test@example.com
+password: 00000000
+
+## PHPUnitを利用したテストに関して
+以下のコマンド:  
+```
+//テスト用データベースの作成
+docker-compose exec mysql bash
+mysql -u root -p
+//パスワードはrootと入力
+create database test_database;
+
+docker-compose exec php bash
+php artisan migrate:fresh --env=testing
+./vendor/bin/phpunit
 ```
 
 ## 使用技術(実行環境)

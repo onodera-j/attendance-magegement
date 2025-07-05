@@ -41,9 +41,4 @@ class Attendance extends Model
         return $this->hasMany(Request::class);
     }
 
-    public function approve()
-    {
-        return $this->hasMany(Approve::class);
-    }
-
 }

@@ -63,8 +63,7 @@
                                 <td class="table-data">{{ $requestData->attendance->work_start_datetime->format('Y/m/d') }}</td>
                                 <td class="table-data">{{ $requestData['remarks'] }}</td>
                                 <td class="table-data">{{ $requestData->requested_at->format('Y/m/d') }}</td>
-                                <td class="table-data td-detail"><a class="link-detail"
-                                        href="/attendance/{{ $requestData['attendance_id'] }}">詳細</a></td>
+                                <td class="table-data td-detail"><a class="link-detail" href="/attendance/{{ $requestData['attendance_id'] }}">詳細</a></td>
                                 </td>
                             </tr>
                         @endforeach

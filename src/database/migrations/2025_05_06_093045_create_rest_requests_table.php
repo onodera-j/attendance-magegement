@@ -30,6 +30,6 @@ class CreateRestRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requests_rest');
+        Schema::dropIfExists('rest_requests');
     }
 }

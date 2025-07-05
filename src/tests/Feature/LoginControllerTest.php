@@ -10,16 +10,16 @@ use App\Models\Attendance;
 use App\Models\Rest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Database\Seeders\DatabaseSeeder;
+use Database\Seeders\UserSeeder;
 
 class LoginControllerTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed(DatabaseSeeder::class);
+        $this->seed(UserSeeder::class);
     }
     /**
      * A basic feature test example.

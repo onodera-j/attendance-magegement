@@ -12,7 +12,6 @@ use App\Models\Attendance;
 use App\Models\Rest;
 use App\Models\Request as UserRequest;
 use App\Models\RestRequest;
-use App\Models\Approve;
 use App\Http\Requests\adminCorrectionRequest;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -135,16 +134,16 @@ class AdminController extends Controller
                 $restStartDateStr = $restStartsDates[$index] ?? null;
                 $restEndDateStr = $restEndsDates[$index] ?? null;
 
-                if($restIdValue != null && $restStartStr === null && $restEndStr === null){
+                if($restIdValue != null && !$restStartStr && !$restEndStr){
                     $restData = Rest::find($restIdValue);
                     $restData->delete();
                     continue;
                 }
 
-                if($restStartStr !== null && $restEndStr !== null){
+                if($restStartStr && $restEndStr){
 
 
-                    if($restIdValue !== null){
+                    if($restIdValue){
 
                         $restData = Rest::find($restIdValue);
                         $rest_start_datetime = Carbon::parse($restStartDateStr . " " . $restStartStr);

@@ -37,6 +37,21 @@ class adminCorrectionRequest extends FormRequest
         ];
     }
 
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'work_start' => mb_convert_kana($this->input('work_start'), 'na', 'UTF-8'),
+            'work_end'   => mb_convert_kana($this->input('work_end'), 'na', 'UTF-8'),
+            'rest_start' => collect($this->input('rest_start'))
+                ->map(fn($val) => mb_convert_kana($val, 'na', 'UTF-8'))
+                ->toArray(),
+
+            'rest_end' => collect($this->input('rest_end'))
+                ->map(fn($val) => mb_convert_kana($val, 'na', 'UTF-8'))
+                ->toArray(),
+        ]);
+    }
+
     public function withValidator($validator): void
     {
         $validator->after(function ($validator) {
@@ -129,8 +144,8 @@ class adminCorrectionRequest extends FormRequest
             'work_end.required' => '勤務終了時刻は必須です',
             'work_end.date_format' => '勤務終了時刻は時刻形式(例: 13:00)で入力してください',
 
-            'rest_start.*.nullable' => '休憩開始時刻は時刻形式で入力してください (例: 12:00)',
-            'rest_end.*.nullable' => '休憩終了時刻は時刻形式で入力してください (例: 13:00)',
+            'rest_start.*.date_format' => '休憩開始時刻は時刻形式で入力してください (例: 12:00)',
+            'rest_end.*.date_format' => '休憩終了時刻は時刻形式で入力してください (例: 13:00)',
 
 
             'remarks.required' => '備考を記入してください',
