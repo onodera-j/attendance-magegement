@@ -48,9 +48,11 @@ php artisan migrate
 php artisan db:seed
 ```
 以下のデータを作成します
+``` text
 管理者アカウント
 一般ログイン用アカウント
 サンプルデータとして6人分の先月から昨日までの勤怠情報（月～金）
+```
 
 ## ログイン
 トップページ（一般・管理者ログイン選択）
@@ -67,14 +69,18 @@ http://localhost/admin/login/
 ```
 
 ## 管理者用アカウント
+``` text
 name: 管理者
 email: admin@example.com
 password: 00000000
+```
 
 ## 一般アカウント
+``` text
 name: 一般ログイン
 email: test@example.com
 password: 00000000
+```
 
 ## PHPUnitを利用したテストに関して
 以下のコマンド:  
