@@ -54,11 +54,17 @@ php artisan db:seed
 
 ## ログイン
 トップページ（一般・管理者ログイン選択）
-```http://localhost/```
+```bash
+http://localhost/
+```
 一般ユーザーログイン
-```http://localhost/login```
+```bash
+http://localhost/login
+```
 管理者ログイン
-```http://localhost/admin/login/```
+```bash
+http://localhost/admin/login/
+```
 
 ## 管理者用アカウント
 name: 管理者
