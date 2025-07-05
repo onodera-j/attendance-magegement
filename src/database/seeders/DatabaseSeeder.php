@@ -15,10 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
         $this->call(AdminSeeder::class);
-        $this->call([
-            UserAttendanceSeeder::class, // これを追加
-            // 他のシーダーがある場合はここに追加
-        ]);
+        $this->call(UserAttendanceSeeder::class);
 
     }
 }

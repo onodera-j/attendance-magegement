@@ -43,8 +43,8 @@ class AttendanceController extends Controller
 
     public function atWork()
     {
-        // DB::beginTransaction();
-        // try{
+        DB::beginTransaction();
+        try{
             $user = Auth::user();
             $now = Carbon::now();
             $attendanceData['user_id'] = $user->id;
@@ -58,6 +58,12 @@ class AttendanceController extends Controller
             DB::commit();
 
             return redirect('/attendance');
+
+        }catch(\Exception $e) {
+            DB::rollback();
+            Log::error("Error: " . $e->getMessage());
+            return back()->withErrors(["error", "エラーが発生しました"]);
+        }
 
     }
 
@@ -356,7 +362,6 @@ class AttendanceController extends Controller
             DB::rollback();
             Log::error("Error: " . $e->getMessage());
             dd("Error occurred: " . $e->getMessage(), $e->getTraceAsString());
-        // Log::error("Error: " . $e->getMessage()); // これは残しても良い
             return back()->withErrors(["error", "エラーが発生しました"]);
         }
     }

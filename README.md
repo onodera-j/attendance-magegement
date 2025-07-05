@@ -52,6 +52,14 @@ php artisan db:seed
 一般ログイン用アカウント
 サンプルデータとして6人分の先月から昨日までの勤怠情報（月～金）
 
+## ログイン
+トップページ（一般・管理者ログイン選択）
+```http://localhost/```
+一般ユーザーログイン
+```http://localhost/login```
+管理者ログイン
+```http://localhost/admin/login/```
+
 ## 管理者用アカウント
 name: 管理者
 email: admin@example.com
@@ -73,7 +81,8 @@ create database test_database;
 
 docker-compose exec php bash
 php artisan migrate:fresh --env=testing
-./vendor/bin/phpunit
+テストの実行
+vendor/bin/phpunit
 ```
 
 ## 使用技術(実行環境)
